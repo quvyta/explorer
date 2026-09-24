@@ -25,7 +25,6 @@ root = "Корень"
 [explorer.view]
 list = "список"
 grid = "сетка"
-tree = "дерево"
 
 [explorer.go]
 label = "Перейти"
@@ -89,7 +88,6 @@ places = "места"
 hidden = "скрытые файлы"
 view-list = "вид: список"
 view-grid = "вид: сетка"
-view-tree = "вид: дерево"
 settings = "настройки"
 rename = "переименовать"
 trash = "в корзину"

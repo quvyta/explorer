@@ -40,7 +40,7 @@ Opening a file uses the desktop's own databases: shared-mime-info tells what the
 | Take a favourite out | the menu key on it in the sidebar | right click, Remove from favourites |
 | Places on a narrow screen | ctrl+b | the edge button in the top strip |
 | Hidden files | ctrl+h or alt+. | settings |
-| View: list, grid, tree | ctrl+1, ctrl+2, ctrl+3 | the picker in the top strip |
+| View: list, grid | ctrl+1, ctrl+2 | the picker in the top strip |
 | Rename | F2 | right click |
 | Move to the trash | Delete | right click |
 | Delete for good (always asks) | shift+Delete | right click |
@@ -65,7 +65,7 @@ A right click on an archive offers **Extract here** and **Extract to…**. The a
 
 ## Settings
 
-Settings live in `explorer.conf` in the shared Quvyta folder (`~/.config/quvyta/` on Linux): the view, whether hidden files are shown, and whether icons are coloured by their kind (off by default; it needs a terminal with more than 16 colours, and the shape of an icon tells the kind either way). The language, theme and icons are shared by every Quvyta application and can be set for qexp alone. Only what differs from the default is written.
+Settings live in `explorer.conf` in the shared Quvyta folder (`~/.config/quvyta/` on Linux): the view (list or grid), whether hidden files are shown, and whether icons are coloured by their kind (off by default; it needs a terminal with more than 16 colours, and the shape of an icon tells the kind either way). The language, theme and icons are shared by every Quvyta application and can be set for qexp alone. Only what differs from the default is written.
 
 ## With qdesk
 

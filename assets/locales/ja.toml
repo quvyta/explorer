@@ -25,7 +25,6 @@ root = "ルート"
 [explorer.view]
 list = "リスト"
 grid = "グリッド"
-tree = "ツリー"
 
 [explorer.go]
 label = "移動先"
@@ -89,7 +88,6 @@ places = "場所"
 hidden = "隠しファイル"
 view-list = "リスト表示"
 view-grid = "グリッド表示"
-view-tree = "ツリー表示"
 settings = "設定"
 rename = "名前を変更"
 trash = "ゴミ箱へ移動"

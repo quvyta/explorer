@@ -10,7 +10,7 @@ use super::*;
 fn switch_of(h: &Harness<Explorer>, label: &str) -> (i32, i32) {
     let (_, y) = h.find(label).unwrap_or_else(|| panic!("no {label}:\n{}", h.screen()));
     let picker = h.screen().lines().position(|line| line.contains(" View ")).expect("the view row");
-    let (x, _) = find_in_row(h, "tree", picker).expect("the picker");
+    let (x, _) = find_in_row(h, "grid", picker).expect("the picker");
     (x + 3, y)
 }
 
@@ -34,12 +34,37 @@ fn the_view_in_the_file_is_the_view_at_start() {
     let h = open(&scratch);
     assert!(!h.screen().contains("Size"), "a grid has no columns:\n{}", h.screen());
     assert!(h.screen().contains("notes"));
-    scratch.write("config/explorer.conf", "view = \"tree\"\n");
-    let h = open(&scratch);
-    assert!(h.screen().contains(&format!("{} /", glyph(&h, "folder"))), "the tree shows the root:\n{}", h.screen());
     scratch.write("config/explorer.conf", "view = \"sideways\"\n");
     let h = open(&scratch);
     assert!(h.screen().contains("Size"), "a view qexp does not know is the list:\n{}", h.screen());
+}
+
+#[test]
+fn a_tree_left_by_an_older_qexp_opens_as_the_list_and_stays_in_the_file() {
+    let scratch = Scratch::new();
+    // 0.1.0 and 0.1.1 wrote this when the tree was chosen.
+    scratch.write("config/explorer.conf", "view = \"tree\"\n");
+    let h = open(&scratch);
+    assert!(h.screen().contains("Size"), "the list, with its columns:\n{}", h.screen());
+    assert!(!h.screen().contains(&format!("{} /", glyph(&h, "folder"))), "no tree from the root:\n{}", h.screen());
+    assert!(!h.screen().contains("tree"), "and no word of it:\n{}", h.screen());
+    assert_eq!(conf(&scratch), "view = \"tree\"\n", "starting alone rewrites nothing");
+}
+
+#[test]
+fn the_view_picked_on_the_settings_page_is_drawn_and_written() {
+    let scratch = Scratch::new();
+    let mut h = open(&scratch);
+    click_icon(&mut h, "settings");
+    let row = h.screen().lines().position(|line| line.contains(" View ")).expect("the view row");
+    assert!(!h.screen().lines().nth(row).unwrap_or_default().contains("tree"), "{}", h.screen());
+    let (x, y) = find_in_row(&h, "grid", row).expect("grid on the view row");
+    h.click(x, y);
+    settle(&mut h);
+    assert!(conf(&scratch).contains("view = \"grid\""), "{}", conf(&scratch));
+    press(&mut h, "esc");
+    assert!(!h.screen().contains("Size"), "back at the folder, the grid has no columns:\n{}", h.screen());
+    assert!(h.screen().contains("notes"), "{}", h.screen());
 }
 
 #[test]

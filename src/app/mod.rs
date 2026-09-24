@@ -5,7 +5,7 @@
 //! qexp keeps one `FileManagerState` rooted at the root of the file system, so what is cut or
 //! copied stays waiting while the person moves between folders: every path is under the same
 //! root. Going somewhere opens the folders above the goal, reads them, and then steps into it with
-//! the manager's own `Enter`; the tree view shows the way down to it for that reason.
+//! the manager's own `Enter`.
 
 use std::ffi::OsString;
 use std::path::{Path, PathBuf};
@@ -569,7 +569,6 @@ impl App for Explorer {
             "hidden" => Msg::Hidden(!self.files.shows_hidden()),
             "view-list" => Msg::View(FileView::List),
             "view-grid" => Msg::View(FileView::Icons),
-            "view-tree" => Msg::View(FileView::Tree),
             "settings" => Msg::Settings(true),
             "help" => Msg::Help(true),
             "cancel" => Msg::Cancel,

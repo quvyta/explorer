@@ -25,7 +25,6 @@ root = "Wurzel"
 [explorer.view]
 list = "Liste"
 grid = "Raster"
-tree = "Baum"
 
 [explorer.go]
 label = "Gehe zu"
@@ -89,7 +88,6 @@ places = "Orte"
 hidden = "versteckte Dateien"
 view-list = "Listenansicht"
 view-grid = "Rasteransicht"
-view-tree = "Baumansicht"
 settings = "Einstellungen"
 rename = "umbenennen"
 trash = "in den Papierkorb"

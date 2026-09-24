@@ -317,7 +317,7 @@ fn the_arrows_move_through_the_folder_after_a_click_that_went_there() {
 }
 
 #[test]
-fn the_arrows_move_through_the_grid_and_the_tree_after_a_click_on_the_picker() {
+fn the_arrows_move_through_the_grid_after_a_click_on_the_picker() {
     let scratch = Scratch::new();
     let mut h = open(&scratch);
     click(&mut h, "grid");
@@ -325,9 +325,6 @@ fn the_arrows_move_through_the_grid_and_the_tree_after_a_click_on_the_picker() {
     assert_eq!(h.app().selected(), Some(scratch.path("home")), "the grid:\n{}", h.screen());
     press(&mut h, "right");
     assert_eq!(h.app().selected(), Some(scratch.path("home/Documents")), "the grid:\n{}", h.screen());
-    click(&mut h, "tree");
-    press(&mut h, "down");
-    assert_eq!(h.app().selected(), Some(scratch.path("home/Pictures")), "the tree:\n{}", h.screen());
 }
 
 #[test]

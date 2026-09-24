@@ -24,7 +24,6 @@ root = "Root"
 [explorer.view]
 list = "list"
 grid = "grid"
-tree = "tree"
 
 [explorer.go]
 label = "Go to"
@@ -118,7 +117,6 @@ places = "places"
 hidden = "hidden files"
 view-list = "list view"
 view-grid = "grid view"
-view-tree = "tree view"
 settings = "settings"
 rename = "rename"
 trash = "move to the trash"

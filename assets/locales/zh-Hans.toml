@@ -25,7 +25,6 @@ root = "根目录"
 [explorer.view]
 list = "列表"
 grid = "网格"
-tree = "树形"
 
 [explorer.go]
 label = "前往"
@@ -89,7 +88,6 @@ places = "位置"
 hidden = "隐藏文件"
 view-list = "列表视图"
 view-grid = "网格视图"
-view-tree = "树状视图"
 settings = "设置"
 rename = "重命名"
 trash = "移入回收站"

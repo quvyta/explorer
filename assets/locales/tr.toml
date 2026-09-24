@@ -24,7 +24,6 @@ root = "Kök"
 [explorer.view]
 list = "liste"
 grid = "ızgara"
-tree = "ağaç"
 
 [explorer.go]
 label = "Git"
@@ -117,7 +116,6 @@ places = "yerler"
 hidden = "gizli dosyalar"
 view-list = "liste görünümü"
 view-grid = "ızgara görünümü"
-view-tree = "ağaç görünümü"
 settings = "ayarlar"
 rename = "yeniden adlandır"
 trash = "çöpe at"

@@ -13,7 +13,8 @@ use qframe::widgets::{
 
 use super::{Explorer, Msg};
 
-/// The key of the view: `list`, `grid` or `tree`.
+/// The key of the view: `list` or `grid`. A `tree` left by 0.1.0 or 0.1.1 is read as the list and
+/// stays in the file until the person picks a view.
 pub(super) const VIEW: &str = "view";
 
 /// The key of whether hidden entries are shown.
@@ -23,8 +24,8 @@ pub(super) const HIDDEN: &str = "show-hidden";
 pub(super) const COLOUR_ICONS: &str = "colour-icons";
 
 /// The views in the order the picker shows them, with the names the file keeps them under.
-pub(super) const VIEWS: [(FileView, &str); 3] =
-    [(FileView::List, "list"), (FileView::Icons, "grid"), (FileView::Tree, "tree")];
+/// The framework's tree view is left out: the person found it unneeded next to the list.
+pub(super) const VIEWS: [(FileView, &str); 2] = [(FileView::List, "list"), (FileView::Icons, "grid")];
 
 /// The widest the rows grow: beyond it a label and its control drift too far apart.
 const SECTION: u16 = 76;

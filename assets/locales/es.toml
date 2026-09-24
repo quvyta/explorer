@@ -25,7 +25,6 @@ root = "Raíz"
 [explorer.view]
 list = "lista"
 grid = "cuadrícula"
-tree = "árbol"
 
 [explorer.go]
 label = "Ir a"
@@ -89,7 +88,6 @@ places = "lugares"
 hidden = "archivos ocultos"
 view-list = "vista de lista"
 view-grid = "vista de cuadrícula"
-view-tree = "vista de árbol"
 settings = "ajustes"
 rename = "renombrar"
 trash = "mover a la papelera"

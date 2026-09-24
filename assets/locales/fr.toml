@@ -25,7 +25,6 @@ root = "Racine"
 [explorer.view]
 list = "liste"
 grid = "grille"
-tree = "arbre"
 
 [explorer.go]
 label = "Aller à"
@@ -89,7 +88,6 @@ places = "emplacements"
 hidden = "fichiers masqués"
 view-list = "vue en liste"
 view-grid = "vue en grille"
-view-tree = "vue en arbre"
 settings = "paramètres"
 rename = "renommer"
 trash = "mettre à la corbeille"

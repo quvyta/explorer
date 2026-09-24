@@ -70,13 +70,28 @@ fn the_views_change_from_the_picker_and_from_ctrl_and_a_number() {
     click(&mut h, "grid");
     assert!(!h.screen().contains("Size"), "the grid has none:\n{}", h.screen());
     assert!(h.screen().contains("notes"), "{}", h.screen());
-    press(&mut h, "ctrl+3");
-    // The tree shows the way down from the root, which is a row of its own.
-    let root = format!("{} /", glyph(&h, "folder"));
-    assert!(h.screen().contains(&root), "{}", h.screen());
-    assert!(!h.screen().contains("Size"), "{}", h.screen());
     press(&mut h, "ctrl+1");
     assert!(h.screen().contains("Size"), "{}", h.screen());
+    press(&mut h, "ctrl+2");
+    assert!(!h.screen().contains("Size"), "{}", h.screen());
+}
+
+#[test]
+fn the_picker_offers_the_list_and_the_grid_and_ctrl_3_changes_nothing() {
+    let scratch = Scratch::new();
+    let mut h = open(&scratch);
+    let strip = line_with(&h, "grid");
+    assert!(strip.contains("list"), "the picker is on the top strip: {strip}");
+    assert!(!h.screen().contains("tree"), "the tree is not offered:\n{}", h.screen());
+    let before = h.screen();
+    press(&mut h, "ctrl+3");
+    assert_eq!(h.screen(), before, "ctrl+3 leaves the list as it is");
+    click(&mut h, "grid");
+    let before = h.screen();
+    press(&mut h, "ctrl+3");
+    assert_eq!(h.screen(), before, "and the grid");
+    let written = fs::read_to_string(scratch.path("config/explorer.conf")).unwrap_or_default();
+    assert_eq!(written, "view = \"grid\"\n", "only the click was written");
 }
 
 #[test]
@@ -123,9 +138,10 @@ fn question_mark_lists_the_keys() {
     assert!(h.screen().contains("select several"), "the screen's own keys come first:\n{}", h.screen());
     // Typing filters the list, which is longer than the layer.
     h.type_text("view");
-    for label in ["list view", "grid view", "tree view"] {
+    for label in ["list view", "grid view"] {
         assert!(h.screen().contains(label), "{label}:\n{}", h.screen());
     }
+    assert!(!h.screen().contains("tree view"), "no key for a tree:\n{}", h.screen());
     press(&mut h, "esc");
     assert!(!h.screen().contains("list view"), "{}", h.screen());
 }
@@ -163,17 +179,15 @@ fn f2_asks_for_a_new_name() {
 }
 
 #[test]
-fn a_program_carries_the_program_icon_in_the_grid_and_the_tree_too() {
+fn a_program_carries_the_program_icon_in_the_grid_too() {
     let scratch = Scratch::new();
     scratch.write("home/install", "#!/bin/sh");
     fs::set_permissions(scratch.path("home/install"), fs::Permissions::from_mode(0o755)).expect("mode");
     scratch.write("home/draft", "plain");
-    // Each view is the one qexp starts in: neither reads a row's permissions for its columns, as
-    // the list does, so the run bit has to come with the folder's entries.
-    for view in ["grid", "tree"] {
-        scratch.write("config/explorer.conf", &format!("view = \"{view}\"\n"));
-        let h = open(&scratch);
-        assert_eq!(icon_before(&h, "install"), glyph(&h, "file-executable"), "{view}:\n{}", h.screen());
-        assert_eq!(icon_before(&h, "draft"), glyph(&h, "file"), "{view}: no run bit, no program");
-    }
+    // The grid is the view qexp starts in: it does not read a row's permissions for its columns,
+    // as the list does, so the run bit has to come with the folder's entries.
+    scratch.write("config/explorer.conf", "view = \"grid\"\n");
+    let h = open(&scratch);
+    assert_eq!(icon_before(&h, "install"), glyph(&h, "file-executable"), "grid:\n{}", h.screen());
+    assert_eq!(icon_before(&h, "draft"), glyph(&h, "file"), "grid: no run bit, no program");
 }

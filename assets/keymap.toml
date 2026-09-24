@@ -14,7 +14,6 @@ places = "ctrl+b"
 hidden = ["ctrl+h", "alt+."]
 view-list = "ctrl+1"
 view-grid = "ctrl+2"
-view-tree = "ctrl+3"
 settings = "ctrl+,"
 rename = "f2"
 trash = "delete"

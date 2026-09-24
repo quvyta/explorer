@@ -2,6 +2,12 @@
 
 Every release of quvyta-explorer, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## 0.1.2 - 2026-09-24
+
+### Removed
+
+- The tree view; the view picker offers list and grid, ctrl+1 and ctrl+2 choose them, and ctrl+3 does nothing. A settings file that asks for the tree opens in the list and is left as it is until a view is picked.
+
 ## 0.1.1 - 2026-09-24
 
 ### Added
