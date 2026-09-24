@@ -1,0 +1,124 @@
+# Türkçe.
+
+[meta]
+name = "Türkçe"
+code = "tr"
+
+[explorer]
+too-small = "Terminal çok küçük"
+places = "Yerler"
+back = "Geri"
+forward = "İleri"
+up = "Üst klasöre çık"
+
+[explorer.place]
+home = "Ev"
+desktop = "Masaüstü"
+documents = "Belgeler"
+downloads = "İndirilenler"
+pictures = "Resimler"
+music = "Müzik"
+videos = "Videolar"
+root = "Kök"
+
+[explorer.view]
+list = "liste"
+grid = "ızgara"
+tree = "ağaç"
+
+[explorer.go]
+label = "Git"
+type = "Bir yol yaz"
+not-there = "{path} diye bir şey yok"
+vanished = "{path} artık yok, en yakın klasörü gösteriliyor"
+unreadable = "{path} açılamıyor, bir üstündeki klasör gösteriliyor"
+outside = "{path}, qexp'in gösterdiği klasörlerin dışında"
+
+[explorer.open]
+failed = "{name} açılamadı"
+
+[explorer.open-with]
+item = "Birlikte aç…"
+editor = "Terminal düzenleyicisi"
+default = "varsayılan"
+no-desktop = "grafik masaüstü yok"
+
+[explorer.archive]
+here = "Buraya çıkar"
+to = "Klasöre çıkar…"
+needs = "{tool} gerekiyor"
+pick-title = "{name} nereye çıkarılsın"
+running = "{name} çıkarılıyor"
+cancel = "İptal"
+done = "{name} çıkarıldı"
+failed = "{name} çıkarılamadı"
+encrypted = "arşiv şifreli; şifreli arşivler henüz desteklenmiyor"
+missing = "{tool} gerekiyor; {package} paketiyle gelir"
+not-archive = "adı bir arşiv adı değil"
+
+[explorer.wallpaper]
+# qdesk'in kendi menüsündeki sözler.
+item = "Duvar kâğıdı yap"
+running = "{name} duvar kâğıdı yapılıyor"
+done = "Duvar kâğıdı değişti"
+refused = "{name} duvar kâğıdı yapılmadı"
+status = "qdesk {code} durumuyla bitti"
+stopped = "qdesk {seconds} saniyede cevap vermedi ve durduruldu"
+
+[explorer.settings]
+title = "Ayarlar"
+folders = "Klasörler"
+view = "Düzen"
+hidden = "Gizli dosyaları göster"
+hidden-text = "Adı noktayla başlayan dosyalar ve klasörler."
+colour-icons = "İkonları türüne göre renklendir"
+colour-icons-text = "Her dosya türü temadan bir renk alır. 16'dan çok renk gösteren bir terminal ister; ikonun şekli türü her zaman söyler."
+not-saved = "Ayarlar kaydedilemedi"
+
+[explorer.hints]
+move = "gez"
+open = "aç"
+change = "değiştir"
+select = "birden çok seç"
+menu = "işlemler"
+
+[explorer.cli]
+help = """
+qexp {version}: terminal için bir dosya gezgini
+
+Kullanım: qexp [YOL]
+
+  YOL          bir klasörse orada açılır; bir dosyaysa klasöründe, dosya seçili açılır.
+               Yol verilmezse qexp ev klasörünü açar.
+  --version    sürümü yazar
+  --help       bu yardımı yazar
+
+qexp açılışta günde en fazla bir kez crates.io'ya yeni bir sürüm olup olmadığını sorar; ayarlardan kapatılabilir."""
+missing = "qexp: {path} diye bir şey yok"
+unknown = "qexp: bilinmeyen seçenek {argument}; qexp --help yazıp bakabilirsin"
+
+[keys]
+back = "geri"
+forward = "ileri"
+up = "üst klasör"
+location = "bir yola git"
+places = "yerler"
+hidden = "gizli dosyalar"
+view-list = "liste görünümü"
+view-grid = "ızgara görünümü"
+view-tree = "ağaç görünümü"
+settings = "ayarlar"
+rename = "yeniden adlandır"
+trash = "çöpe at"
+delete = "kalıcı sil"
+open-with = "birlikte aç"
+cancel = "kapat"
+place-1 = "birinci yer"
+place-2 = "ikinci yer"
+place-3 = "üçüncü yer"
+place-4 = "dördüncü yer"
+place-5 = "beşinci yer"
+place-6 = "altıncı yer"
+place-7 = "yedinci yer"
+place-8 = "sekizinci yer"
+place-9 = "dokuzuncu yer"

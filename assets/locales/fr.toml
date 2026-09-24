@@ -1,0 +1,124 @@
+# Français
+
+[meta]
+name = "Français"
+code = "fr"
+fallback = "en"
+
+[explorer]
+too-small = "Le terminal est trop petit"
+places = "Emplacements"
+back = "Retour"
+forward = "Suivant"
+up = "Remonter au dossier parent"
+
+[explorer.place]
+home = "Accueil"
+desktop = "Bureau"
+documents = "Documents"
+downloads = "Téléchargements"
+pictures = "Images"
+music = "Musique"
+videos = "Vidéos"
+root = "Racine"
+
+[explorer.view]
+list = "liste"
+grid = "grille"
+tree = "arbre"
+
+[explorer.go]
+label = "Aller à"
+type = "Saisissez un chemin"
+not-there = "Il n'y a rien à {path}"
+vanished = "{path} n'existe plus, le dossier le plus proche est donc affiché"
+unreadable = "{path} ne peut pas être ouvert, le dossier parent est donc affiché"
+outside = "{path} est en dehors des dossiers affichés par qexp"
+
+[explorer.open]
+failed = "{name} n'a pas pu être ouvert"
+
+[explorer.wallpaper]
+item = "Définir comme fond d'écran"
+running = "Définition de {name} comme fond d'écran"
+done = "Fond d'écran défini"
+refused = "{name} n'est pas le fond d'écran"
+status = "qdesk s'est terminé avec le statut {code}"
+stopped = "qdesk n'a pas répondu en {seconds} secondes et a été arrêté"
+
+[explorer.settings]
+title = "Paramètres"
+folders = "Dossiers"
+view = "Affichage"
+hidden = "Afficher les fichiers masqués"
+hidden-text = "Fichiers et dossiers dont le nom commence par un point."
+colour-icons = "Colorer les icônes par type"
+colour-icons-text = "Chaque type de fichier reçoit une couleur du thème. Nécessite un terminal de plus de 16 couleurs ; la forme de l'icône indique toujours le type."
+not-saved = "Les paramètres n'ont pas pu être enregistrés"
+
+[explorer.hints]
+move = "déplacer"
+open = "ouvrir"
+change = "modifier"
+select = "sélectionner plusieurs"
+menu = "actions"
+
+[explorer.cli]
+help = """
+qexp {version} : un gestionnaire de fichiers pour le terminal
+
+Utilisation : qexp [PATH]
+
+  PATH         un dossier s'y ouvre ; un fichier ouvre son dossier avec le fichier sélectionné.
+               Sans chemin, qexp ouvre votre dossier personnel.
+  --version    affiche la version
+  --help       affiche cette aide
+
+Une fois par jour au démarrage, qexp interroge crates.io pour savoir si une version plus récente existe ; désactivez cela dans les paramètres."""
+missing = "qexp : rien à l'emplacement {path}"
+unknown = "qexp : option inconnue {argument} ; consultez qexp --help"
+
+[keys]
+back = "retour"
+forward = "avant"
+up = "haut"
+location = "aller à un chemin"
+places = "emplacements"
+hidden = "fichiers masqués"
+view-list = "vue en liste"
+view-grid = "vue en grille"
+view-tree = "vue en arbre"
+settings = "paramètres"
+rename = "renommer"
+trash = "mettre à la corbeille"
+delete = "supprimer définitivement"
+open-with = "ouvrir avec"
+cancel = "fermer"
+place-1 = "emplacement 1"
+place-2 = "emplacement 2"
+place-3 = "emplacement 3"
+place-4 = "emplacement 4"
+place-5 = "emplacement 5"
+place-6 = "emplacement 6"
+place-7 = "emplacement 7"
+place-8 = "emplacement 8"
+place-9 = "emplacement 9"
+
+[explorer.open-with]
+item = "Ouvrir avec…"
+editor = "Éditeur de terminal"
+default = "par défaut"
+no-desktop = "pas d'environnement graphique"
+
+[explorer.archive]
+here = "Extraire ici"
+to = "Extraire vers…"
+needs = "{tool} requis"
+pick-title = "Extraire {name} vers"
+running = "Extraction de {name} en cours"
+cancel = "Annuler"
+done = "{name} extrait"
+failed = "{name} n'a pas pu être extrait"
+encrypted = "l'archive est chiffrée ; les archives chiffrées ne sont pas encore prises en charge"
+missing = "{tool} est nécessaire, il fait partie du paquet {package}"
+not-archive = "son nom n'est pas celui d'une archive"

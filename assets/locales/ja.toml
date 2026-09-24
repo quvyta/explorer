@@ -1,0 +1,124 @@
+# 日本語
+
+[meta]
+name = "日本語"
+code = "ja"
+fallback = "en"
+
+[explorer]
+too-small = "ターミナルの画面が小さすぎます"
+places = "場所"
+back = "戻る"
+forward = "進む"
+up = "上のフォルダーへ"
+
+[explorer.place]
+home = "ホーム"
+desktop = "デスクトップ"
+documents = "ドキュメント"
+downloads = "ダウンロード"
+pictures = "画像"
+music = "音楽"
+videos = "動画"
+root = "ルート"
+
+[explorer.view]
+list = "リスト"
+grid = "グリッド"
+tree = "ツリー"
+
+[explorer.go]
+label = "移動先"
+type = "パスを入力してください"
+not-there = "{path} には何もありません"
+vanished = "{path} はなくなったため、最も近いフォルダーを表示しています"
+unreadable = "{path} を開けないため、その上のフォルダーを表示しています"
+outside = "{path} は qexp が表示するフォルダーの範囲外です"
+
+[explorer.open]
+failed = "{name} を開けませんでした"
+
+[explorer.wallpaper]
+item = "壁紙に設定"
+running = "{name} を壁紙に設定しています"
+done = "壁紙を設定しました"
+refused = "{name} は壁紙として使えません"
+status = "qdesk はステータス {code} で終了しました"
+stopped = "qdesk が {seconds} 秒以内に応答しなかったため停止しました"
+
+[explorer.settings]
+title = "設定"
+folders = "フォルダー"
+view = "表示"
+hidden = "隠しファイルを表示する"
+hidden-text = "名前がドットで始まるファイルやフォルダーです。"
+colour-icons = "種類ごとにアイコンの色を付ける"
+colour-icons-text = "ファイルの種類ごとにテーマの色が使われます。16色を超える端末が必要です。アイコンの形で常に種類が分かります。"
+not-saved = "設定を保存できませんでした"
+
+[explorer.hints]
+move = "移動"
+open = "開く"
+change = "変更"
+select = "複数選択"
+menu = "操作"
+
+[explorer.cli]
+help = """
+qexp {version}: 端末用のファイルブラウザー
+
+使い方: qexp [PATH]
+
+  PATH         フォルダーならそこで開き、ファイルならそのフォルダーを選択状態で開きます。
+               パスなしの場合はホームフォルダーを開きます。
+  --version    バージョンを表示
+  --help       このヘルプを表示
+
+起動時に1日1回、crates.io に新しいバージョンがあるか照会します。設定で無効にできます。"""
+missing = "qexp: {path} には何もありません"
+unknown = "qexp: 不明なオプション {argument}。qexp --help を参照してください"
+
+[keys]
+back = "戻る"
+forward = "進む"
+up = "上へ"
+location = "パスへ移動"
+places = "場所"
+hidden = "隠しファイル"
+view-list = "リスト表示"
+view-grid = "グリッド表示"
+view-tree = "ツリー表示"
+settings = "設定"
+rename = "名前を変更"
+trash = "ゴミ箱へ移動"
+delete = "完全に削除"
+open-with = "別のプログラムで開く"
+cancel = "閉じる"
+place-1 = "場所 1"
+place-2 = "場所 2"
+place-3 = "場所 3"
+place-4 = "場所 4"
+place-5 = "場所 5"
+place-6 = "場所 6"
+place-7 = "場所 7"
+place-8 = "場所 8"
+place-9 = "場所 9"
+
+[explorer.open-with]
+item = "別のプログラムで開く…"
+editor = "ターミナルのエディター"
+default = "デフォルト"
+no-desktop = "グラフィカルデスクトップがありません"
+
+[explorer.archive]
+here = "ここに展開"
+to = "展開先を選択…"
+needs = "{tool} が必要です"
+pick-title = "{name} の展開先"
+running = "{name} を展開しています"
+cancel = "キャンセル"
+done = "{name} を展開しました"
+failed = "{name} を展開できませんでした"
+encrypted = "アーカイブが暗号化されています。暗号化されたアーカイブにはまだ対応していません"
+missing = "{tool} が必要です。これは {package} パッケージに含まれています"
+not-archive = "名前がアーカイブの拡張子ではありません"

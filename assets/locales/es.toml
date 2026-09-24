@@ -1,0 +1,124 @@
+# Español
+
+[meta]
+name = "Español"
+code = "es"
+fallback = "en"
+
+[explorer]
+too-small = "La terminal es demasiado pequeña"
+places = "Lugares"
+back = "Atrás"
+forward = "Adelante"
+up = "Subir a la carpeta superior"
+
+[explorer.place]
+home = "Inicio"
+desktop = "Escritorio"
+documents = "Documentos"
+downloads = "Descargas"
+pictures = "Imágenes"
+music = "Música"
+videos = "Vídeos"
+root = "Raíz"
+
+[explorer.view]
+list = "lista"
+grid = "cuadrícula"
+tree = "árbol"
+
+[explorer.go]
+label = "Ir a"
+type = "Escribe una ruta"
+not-there = "No hay nada en {path}"
+vanished = "{path} ya no está ahí, así que se muestra la carpeta más cercana"
+unreadable = "No se puede abrir {path}, así que se muestra la carpeta superior"
+outside = "{path} está fuera de las carpetas que muestra qexp"
+
+[explorer.open]
+failed = "No se pudo abrir {name}"
+
+[explorer.wallpaper]
+item = "Usar como fondo de pantalla"
+running = "Configurando {name} como fondo de pantalla"
+done = "Fondo de pantalla establecido"
+refused = "{name} no es el fondo de pantalla"
+status = "qdesk terminó con el estado {code}"
+stopped = "qdesk no respondió en {seconds} segundos y se detuvo"
+
+[explorer.settings]
+title = "Ajustes"
+folders = "Carpetas"
+view = "Vista"
+hidden = "Mostrar archivos ocultos"
+hidden-text = "Archivos y carpetas cuyo nombre empieza por un punto."
+colour-icons = "Colorear iconos por tipo"
+colour-icons-text = "Cada tipo de archivo recibe un color del tema. Necesitas un terminal con más de 16 colores; la forma del icono siempre indica el tipo."
+not-saved = "No se pudieron guardar los ajustes"
+
+[explorer.hints]
+move = "mover"
+open = "abrir"
+change = "cambiar"
+select = "varios"
+menu = "acciones"
+
+[explorer.cli]
+help = """
+qexp {version}: un explorador de archivos para la terminal
+
+Uso: qexp [RUTA]
+
+  RUTA         una carpeta se abre ahí; un archivo abre su carpeta con el archivo seleccionado.
+               Sin ruta, qexp abre tu carpeta personal.
+  --version    muestra la versión
+  --help       muestra esta ayuda
+
+Una vez al día, al arrancar, qexp pregunta a crates.io si hay una versión más nueva; puedes desactivarlo en los ajustes."""
+missing = "qexp: no hay nada en {path}"
+unknown = "qexp: opción desconocida {argument}; consulta qexp --help"
+
+[keys]
+back = "atrás"
+forward = "adelante"
+up = "subir"
+location = "ir a una ruta"
+places = "lugares"
+hidden = "archivos ocultos"
+view-list = "vista de lista"
+view-grid = "vista de cuadrícula"
+view-tree = "vista de árbol"
+settings = "ajustes"
+rename = "renombrar"
+trash = "mover a la papelera"
+delete = "borrar para siempre"
+open-with = "abrir con"
+cancel = "cerrar"
+place-1 = "ubicación 1"
+place-2 = "ubicación 2"
+place-3 = "ubicación 3"
+place-4 = "ubicación 4"
+place-5 = "ubicación 5"
+place-6 = "ubicación 6"
+place-7 = "ubicación 7"
+place-8 = "ubicación 8"
+place-9 = "ubicación 9"
+
+[explorer.open-with]
+item = "Abrir con…"
+editor = "Editor de terminal"
+default = "predeterminado"
+no-desktop = "sin escritorio gráfico"
+
+[explorer.archive]
+here = "Extraer aquí"
+to = "Extraer en…"
+needs = "Hace falta {tool}"
+pick-title = "Extraer {name} en"
+running = "Se está extrayendo {name}"
+cancel = "Cancelar"
+done = "{name} extraído"
+failed = "No se pudo extraer {name}"
+encrypted = "el archivo está cifrado; aún no se admiten archivos cifrados"
+missing = "Hace falta {tool}, que viene en el paquete {package}"
+not-archive = "su nombre no es el de un archivo comprimido"

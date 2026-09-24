@@ -1,0 +1,124 @@
+# Deutsch
+
+[meta]
+name = "Deutsch"
+code = "de"
+fallback = "en"
+
+[explorer]
+too-small = "Das Terminal ist zu klein"
+places = "Orte"
+back = "Zurück"
+forward = "Vorwärts"
+up = "Nach oben in den übergeordneten Ordner"
+
+[explorer.place]
+home = "Home"
+desktop = "Desktop"
+documents = "Dokumente"
+downloads = "Downloads"
+pictures = "Bilder"
+music = "Musik"
+videos = "Videos"
+root = "Wurzel"
+
+[explorer.view]
+list = "Liste"
+grid = "Raster"
+tree = "Baum"
+
+[explorer.go]
+label = "Gehe zu"
+type = "Pfad eingeben"
+not-there = "Unter {path} gibt es nichts"
+vanished = "{path} gibt es nicht mehr, daher wird der nächstgelegene Ordner angezeigt"
+unreadable = "{path} kann nicht geöffnet werden, daher wird der übergeordnete Ordner angezeigt"
+outside = "{path} liegt außerhalb der Ordner, die qexp anzeigt"
+
+[explorer.open]
+failed = "{name} konnte nicht geöffnet werden"
+
+[explorer.wallpaper]
+item = "Als Hintergrundbild setzen"
+running = "{name} wird als Hintergrundbild gesetzt"
+done = "Hintergrundbild gesetzt"
+refused = "{name} ist nicht das Hintergrundbild geworden"
+status = "qdesk wurde mit Status {code} beendet"
+stopped = "qdesk hat nicht innerhalb von {seconds} Sekunden geantwortet und wurde gestoppt"
+
+[explorer.settings]
+title = "Einstellungen"
+folders = "Ordner"
+view = "Ansicht"
+hidden = "Versteckte Dateien anzeigen"
+hidden-text = "Dateien und Ordner, deren Namen mit einem Punkt beginnen."
+colour-icons = "Symbole nach Art einfärben"
+colour-icons-text = "Jede Dateiart bekommt eine Farbe des Themes. Braucht ein Terminal mit mehr als 16 Farben; die Form eines Symbols zeigt immer die Art."
+not-saved = "Die Einstellungen konnten nicht gespeichert werden"
+
+[explorer.hints]
+move = "verschieben"
+open = "öffnen"
+change = "ändern"
+select = "mehrere markieren"
+menu = "Aktionen"
+
+[explorer.cli]
+help = """
+qexp {version}: ein Dateimanager fürs Terminal
+
+Aufruf: qexp [PATH]
+
+  PATH         ein Ordner öffnet dort; eine Datei öffnet ihren Ordner mit der Datei markiert.
+               Ohne Pfad öffnet qexp deinen Home-Ordner.
+  --version    gibt die Version aus
+  --help       gibt diese Hilfe aus
+
+Einmal am Tag fragt qexp beim Start crates.io, ob es eine neuere Version gibt; schalt das in den Einstellungen ab."""
+missing = "qexp: unter {path} ist nichts"
+unknown = "qexp: unbekannte Option {argument}; siehe qexp --help"
+
+[keys]
+back = "zurück"
+forward = "vor"
+up = "hoch"
+location = "zu einem Pfad"
+places = "Orte"
+hidden = "versteckte Dateien"
+view-list = "Listenansicht"
+view-grid = "Rasteransicht"
+view-tree = "Baumansicht"
+settings = "Einstellungen"
+rename = "umbenennen"
+trash = "in den Papierkorb"
+delete = "endgültig löschen"
+open-with = "öffnen mit"
+cancel = "schließen"
+place-1 = "Ort 1"
+place-2 = "Ort 2"
+place-3 = "Ort 3"
+place-4 = "Ort 4"
+place-5 = "Ort 5"
+place-6 = "Ort 6"
+place-7 = "Ort 7"
+place-8 = "Ort 8"
+place-9 = "Ort 9"
+
+[explorer.open-with]
+item = "Öffnen mit…"
+editor = "Terminal-Editor"
+default = "Standard"
+no-desktop = "keine grafische Oberfläche"
+
+[explorer.archive]
+here = "Hier entpacken"
+to = "Entpacken nach…"
+needs = "{tool} benötigt"
+pick-title = "{name} entpacken nach"
+running = "{name} wird entpackt"
+cancel = "Abbrechen"
+done = "{name} entpackt"
+failed = "{name} konnte nicht entpackt werden"
+encrypted = "das Archiv ist verschlüsselt; verschlüsselte Archive werden noch nicht unterstützt"
+missing = "{tool} wird benötigt, das im Paket {package} enthalten ist"
+not-archive = "sein Name ist nicht der eines Archivs"

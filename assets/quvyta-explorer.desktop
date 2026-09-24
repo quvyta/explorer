@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Quvyta Explorer
+GenericName=File Explorer
+Comment=Browse and open files in the terminal
+Exec=qexp %f
+Terminal=true
+Icon=system-file-manager
+Categories=System;FileTools;FileManager;ConsoleOnly;
+MimeType=inode/directory;
+Keywords=files;folders;explorer;

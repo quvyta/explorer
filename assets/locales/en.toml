@@ -1,0 +1,125 @@
+# English: the final fallback language. Every other language file is checked against this one.
+
+[meta]
+name = "English"
+code = "en"
+
+[explorer]
+too-small = "The terminal is too small"
+places = "Places"
+back = "Back"
+forward = "Forward"
+up = "Up to the folder above"
+
+[explorer.place]
+home = "Home"
+desktop = "Desktop"
+documents = "Documents"
+downloads = "Downloads"
+pictures = "Pictures"
+music = "Music"
+videos = "Videos"
+root = "Root"
+
+[explorer.view]
+list = "list"
+grid = "grid"
+tree = "tree"
+
+[explorer.go]
+label = "Go to"
+type = "Type a path"
+not-there = "There is nothing at {path}"
+vanished = "{path} is no longer there, so its nearest folder is shown"
+unreadable = "{path} cannot be opened, so the folder above it is shown"
+outside = "{path} is outside the folders qexp shows"
+
+[explorer.open]
+failed = "{name} could not be opened"
+
+[explorer.open-with]
+item = "Open with…"
+editor = "Terminal editor"
+default = "default"
+no-desktop = "no graphical desktop"
+
+[explorer.archive]
+here = "Extract here"
+to = "Extract to…"
+needs = "{tool} needed"
+pick-title = "Extract {name} to"
+running = "{name} is being extracted"
+cancel = "Cancel"
+done = "{name} extracted"
+failed = "{name} could not be extracted"
+encrypted = "the archive is encrypted; encrypted archives are not supported yet"
+missing = "{tool} is needed, which comes in the {package} package"
+not-archive = "its name is not one an archive has"
+
+[explorer.wallpaper]
+# The same words qdesk's own menu uses for it.
+item = "Set as wallpaper"
+running = "Setting {name} as the wallpaper"
+done = "Wallpaper set"
+# qdesk refused the picture; the body is qdesk's own reason.
+refused = "{name} is not the wallpaper"
+status = "qdesk ended with status {code}"
+stopped = "qdesk did not answer within {seconds} seconds and was stopped"
+
+[explorer.settings]
+title = "Settings"
+folders = "Folders"
+view = "View"
+hidden = "Show hidden files"
+hidden-text = "Files and folders whose names start with a dot."
+colour-icons = "Colour icons by kind"
+colour-icons-text = "Each kind of file gets a colour of the theme. Needs a terminal with more than 16 colours; the shape of an icon always tells the kind."
+not-saved = "The settings could not be saved"
+
+[explorer.hints]
+move = "move"
+open = "open"
+change = "change"
+select = "select several"
+menu = "actions"
+
+[explorer.cli]
+help = """
+qexp {version}: a file explorer for the terminal
+
+Usage: qexp [PATH]
+
+  PATH         a folder opens there; a file opens its folder with the file selected.
+               Without a path qexp opens your home folder.
+  --version    print the version
+  --help       print this help
+
+Once a day at start qexp asks crates.io whether a newer version is out; turn it off in the settings."""
+missing = "qexp: there is nothing at {path}"
+unknown = "qexp: unknown option {argument}; see qexp --help"
+
+[keys]
+back = "back"
+forward = "forward"
+up = "up"
+location = "go to a path"
+places = "places"
+hidden = "hidden files"
+view-list = "list view"
+view-grid = "grid view"
+view-tree = "tree view"
+settings = "settings"
+rename = "rename"
+trash = "move to the trash"
+delete = "delete for good"
+open-with = "open with"
+cancel = "close"
+place-1 = "first place"
+place-2 = "second place"
+place-3 = "third place"
+place-4 = "fourth place"
+place-5 = "fifth place"
+place-6 = "sixth place"
+place-7 = "seventh place"
+place-8 = "eighth place"
+place-9 = "ninth place"

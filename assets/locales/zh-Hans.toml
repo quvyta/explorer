@@ -1,0 +1,124 @@
+# 简体中文
+
+[meta]
+name = "简体中文"
+code = "zh-Hans"
+fallback = "en"
+
+[explorer]
+too-small = "终端窗口太小"
+places = "位置"
+back = "后退"
+forward = "前进"
+up = "上一级文件夹"
+
+[explorer.place]
+home = "主目录"
+desktop = "桌面"
+documents = "文档"
+downloads = "下载"
+pictures = "图片"
+music = "音乐"
+videos = "视频"
+root = "根目录"
+
+[explorer.view]
+list = "列表"
+grid = "网格"
+tree = "树形"
+
+[explorer.go]
+label = "前往"
+type = "输入路径"
+not-there = "{path} 处没有任何内容"
+vanished = "{path} 已不存在，因此显示其最近的文件夹"
+unreadable = "无法打开 {path}，因此显示其上一级文件夹"
+outside = "{path} 不在 qexp 显示的文件夹范围内"
+
+[explorer.open]
+failed = "无法打开 {name}"
+
+[explorer.wallpaper]
+item = "设为壁纸"
+running = "正在将 {name} 设为壁纸"
+done = "壁纸已设置"
+refused = "{name} 不能用作壁纸"
+status = "qdesk 以状态 {code} 结束"
+stopped = "qdesk 在 {seconds} 秒内没有响应，已被停止"
+
+[explorer.settings]
+title = "设置"
+folders = "文件夹"
+view = "视图"
+hidden = "显示隐藏文件"
+hidden-text = "名称以点开头的文件和文件夹。"
+colour-icons = "按类型给图标着色"
+colour-icons-text = "每类文件使用主题中的一种颜色。需要支持 16 色以上的终端；图标的形状始终表示文件类型。"
+not-saved = "设置未能保存"
+
+[explorer.hints]
+move = "移动"
+open = "打开"
+change = "切换"
+select = "多选"
+menu = "操作"
+
+[explorer.cli]
+help = """
+qexp {version}：终端文件管理器
+
+用法：qexp [PATH]
+
+  PATH         传入文件夹则在该处打开；传入文件则打开其所在文件夹并选中该文件。
+               不带路径时 qexp 打开你的主文件夹。
+  --version    打印版本
+  --help       打印此帮助
+
+qexp 每天启动时会询问 crates.io 是否有新版本；可在设置中关闭。"""
+missing = "qexp：{path} 处没有任何内容"
+unknown = "qexp：未知选项 {argument}；请查看 qexp --help"
+
+[keys]
+back = "后退"
+forward = "前进"
+up = "上一级"
+location = "跳转到路径"
+places = "位置"
+hidden = "隐藏文件"
+view-list = "列表视图"
+view-grid = "网格视图"
+view-tree = "树状视图"
+settings = "设置"
+rename = "重命名"
+trash = "移入回收站"
+delete = "永久删除"
+open-with = "打开方式"
+cancel = "关闭"
+place-1 = "位置 1"
+place-2 = "位置 2"
+place-3 = "位置 3"
+place-4 = "位置 4"
+place-5 = "位置 5"
+place-6 = "位置 6"
+place-7 = "位置 7"
+place-8 = "位置 8"
+place-9 = "位置 9"
+
+[explorer.open-with]
+item = "打开方式…"
+editor = "终端编辑器"
+default = "默认"
+no-desktop = "没有图形桌面"
+
+[explorer.archive]
+here = "解压到此处"
+to = "解压到…"
+needs = "需要 {tool}"
+pick-title = "将 {name} 解压到"
+running = "正在解压 {name}"
+cancel = "取消"
+done = "已解压 {name}"
+failed = "无法解压 {name}"
+encrypted = "该压缩包已加密；暂不支持加密的压缩包"
+missing = "需要 {tool}，它包含在 {package} 软件包中"
+not-archive = "它的文件扩展名不是压缩包格式"

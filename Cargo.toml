@@ -1,0 +1,40 @@
+[package]
+name = "quvyta-explorer"
+description = "A file explorer for the terminal: icons for every kind of file, opening with the right program, archives extracted with a right click"
+repository = "https://github.com/quvyta/explorer"
+homepage = "https://quvyta.com/qexp/"
+readme = "README.md"
+keywords = ["tui", "terminal", "file-manager", "explorer", "files"]
+categories = ["command-line-utilities", "filesystem"]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+license = "MIT"
+# Only what the program is built from goes into the package; the rest of the repository is for
+# working on it.
+include = ["/src/**", "/assets/**", "/Cargo.toml", "/Cargo.lock", "/README.md", "/LICENSE"]
+
+[lib]
+name = "qexp"
+path = "src/lib.rs"
+
+[dependencies]
+quvyta-framework = { version = "0.1.27", features = ["updates"] }
+
+[dev-dependencies]
+toml = "0.9"
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_docs = "deny"
+
+[lints.rustdoc]
+broken_intra_doc_links = "deny"
+
+[lints.clippy]
+all = { level = "deny", priority = -1 }
+cast_lossless = "deny"
+needless_pass_by_value = "deny"
+redundant_closure_for_method_calls = "deny"
+semicolon_if_nothing_returned = "deny"
+uninlined_format_args = "deny"

@@ -1,0 +1,32 @@
+# qexp's own keys. The framework's global keys (focus, the panel, help on `?`) stay as they are;
+# quitting also answers to a plain `q`, as in most terminal file managers.
+
+[global]
+quit = ["ctrl+q", "q"]
+
+[app]
+back = "alt+left"
+forward = "alt+right"
+up = ["backspace", "alt+up"]
+location = "ctrl+l"
+places = "ctrl+b"
+# Many terminals send ctrl+h as backspace; alt+. reaches every terminal.
+hidden = ["ctrl+h", "alt+."]
+view-list = "ctrl+1"
+view-grid = "ctrl+2"
+view-tree = "ctrl+3"
+settings = "ctrl+,"
+rename = "f2"
+trash = "delete"
+delete = "shift+delete"
+open-with = "ctrl+enter"
+cancel = "esc"
+place-1 = "alt+1"
+place-2 = "alt+2"
+place-3 = "alt+3"
+place-4 = "alt+4"
+place-5 = "alt+5"
+place-6 = "alt+6"
+place-7 = "alt+7"
+place-8 = "alt+8"
+place-9 = "alt+9"
