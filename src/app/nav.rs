@@ -110,6 +110,9 @@ impl Explorer {
     /// Shows the folder `key`, which the manager knows to be a folder, with the cursor on `select`.
     fn arrive(&mut self, key: String, select: Option<String>) -> Command<Msg> {
         self.goal = None;
+        // The sidebar raises the entry the folder is in again, not the favourite the keyboard
+        // last rested on.
+        self.favourite_cursor = None;
         let command = self.files.update(FileManagerMsg::Enter(key.clone()), Msg::Files);
         if let Some(name) = select {
             self.files.select(&child_key(&key, &name));

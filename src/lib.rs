@@ -4,6 +4,7 @@
 pub mod app;
 pub mod archive;
 pub mod cli;
+pub mod favourites;
 pub mod locales;
 pub mod places;
 mod programs;

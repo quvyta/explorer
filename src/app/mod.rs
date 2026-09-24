@@ -15,7 +15,7 @@ use qframe::desktop::{Launched, Openers, XdgDirs, graphical_session};
 use qframe::icons::UserFolders;
 use qframe::prelude::*;
 use qframe::runtime::{Handoff, HandoffOutcome, TaskEvent, TaskId, Update, UpdateCheck};
-use qframe::storage::{Family, Preferences, Settings};
+use qframe::storage::{Family, Preferences, Settings, data_dir};
 use qframe::widgets::{Appearance, AppearanceChange, FileManagerMsg, FileManagerState, FilePickerMsg, FileView, Toast};
 
 use crate::archive::ExtractError;
@@ -23,6 +23,7 @@ use crate::cli::Start;
 use crate::places::{self, Place};
 
 mod extract;
+mod favourites;
 pub mod launch;
 mod nav;
 mod open_with;
@@ -66,6 +67,8 @@ pub struct Machine {
     pub updates: Option<UpdateFolders>,
     /// Whether folders on screen are followed as other programs change them.
     pub following: Following,
+    /// The file the favourites are kept in, in the Quvyta data folder; `None` keeps them in memory.
+    pub favourites: Option<PathBuf>,
 }
 
 impl Machine {
@@ -88,6 +91,9 @@ impl Machine {
             config: family.config_dir(),
             updates: UpdateFolders::here(),
             following: Following::On,
+            // The framework names the ecosystem's config, state and cache folders but not its
+            // data folder, so qexp's is put together the same way: `<data>/quvyta/explorer`.
+            favourites: data_dir(family.id()).map(|folder| folder.join(APP).join(crate::favourites::FILE)),
         }
     }
 }
@@ -172,6 +178,10 @@ pub struct Explorer {
     extractions: Vec<extract::Extraction>,
     /// The folder picker of "Extract to…", while it is open.
     picking: Option<extract::Picking>,
+    /// The person's own folders, below the places.
+    favourites: Vec<favourites::Favourite>,
+    /// The key of the favourite the keyboard rests on in the sidebar, while it rests on one.
+    favourite_cursor: Option<String>,
 }
 
 /// What the screen starts with: qexp itself, its settings file and the shared Quvyta look the
@@ -251,6 +261,8 @@ impl Explorer {
             open_with: None,
             extractions: Vec::new(),
             picking: None,
+            favourites: Vec::new(),
+            favourite_cursor: None,
         }
     }
 
@@ -352,8 +364,17 @@ pub enum Msg {
     Up,
     /// A part of the path was clicked: the folder at that place in it.
     Crumb(usize),
-    /// A place of the sidebar, by its place in the list.
+    /// An entry of the sidebar, by its place in it: the places first, then the favourites.
     Place(usize),
+    /// Add the folder at this path to the favourites.
+    AddFavourite(PathBuf),
+    /// Take the favourite at this path out of the list.
+    RemoveFavourite(PathBuf),
+    /// Move a favourite one place up or down: the one at this path, or with `None` the one the
+    /// keyboard rests on in the sidebar.
+    MoveFavourite(Option<PathBuf>, favourites::Towards),
+    /// The keyboard came to rest on the favourite with this key in the sidebar.
+    FavouriteCursor(String),
     /// The folder is drawn in this view.
     View(FileView),
     /// Hidden entries are shown or not.
@@ -445,7 +466,8 @@ impl App for Explorer {
             Some(start) => self.go_to_path(&start.folder, start.select),
             None => Command::none(),
         };
-        Command::batch([load, start, self.ask_for_update()])
+        let favourites = self.load_favourites();
+        Command::batch([load, start, favourites, self.ask_for_update()])
     }
 
     fn update(&mut self, msg: Msg) -> Command<Msg> {
@@ -455,12 +477,11 @@ impl App for Explorer {
             Msg::Forward => return self.forward(),
             Msg::Up => return self.up(),
             Msg::Crumb(index) => return self.crumb(index),
-            Msg::Place(index) => {
-                self.sidebar_open = false;
-                let Some(place) = self.places.get(index) else { return Command::none() };
-                let path = place.path.clone();
-                return self.go_to_path(&path, None);
-            }
+            Msg::Place(index) => return self.sidebar_entry(index),
+            Msg::AddFavourite(path) => return self.add_favourite(path),
+            Msg::RemoveFavourite(path) => return self.remove_favourite(&path),
+            Msg::MoveFavourite(path, towards) => return self.move_favourite(path, towards),
+            Msg::FavouriteCursor(key) => self.favourite_cursor = Some(key),
             Msg::View(view) => return self.set_view(view),
             Msg::Hidden(shown) => return self.set_hidden(shown),
             Msg::ColourIcons(on) => return self.set_colour_icons(on),

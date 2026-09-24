@@ -17,6 +17,7 @@ use super::{Explorer, Following, Machine, Opening, UpdateFolders};
 use crate::cli::Start;
 
 mod clipboard;
+mod favourites;
 mod menu;
 mod mouse;
 mod navigation;
@@ -97,6 +98,7 @@ impl Scratch {
             config: Some(self.path("config")),
             updates: Some(UpdateFolders { config: self.path("config"), state: self.path("state") }),
             following: Following::Off,
+            favourites: Some(self.path("data/quvyta/explorer/favorites")),
         }
     }
 }

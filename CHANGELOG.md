@@ -2,6 +2,18 @@
 
 Every release of quvyta-explorer, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## 0.1.1 - 2026-09-24
+
+### Added
+
+- Favourites below the places: **Add to favourites** on a folder's menu, **Move up**, **Move down** and **Remove from favourites** on a favourite's own menu, alt+shift with the arrows to move one from the keys, and alt+1 … alt+9 counting them after the places. A favourite whose folder is gone is drawn faint. They are kept in `~/.local/share/quvyta/explorer/favorites`.
+- On the first start, the local folders of the desktop's GTK bookmarks are taken in as the first favourites. qexp never writes the GTK file.
+- The `?` overview names ctrl+a, Esc and the keys that move a favourite, and calls alt with a number a sidebar entry.
+
+### Changed
+
+- Built on quvyta-framework 0.1.28, whose trees leave no room for an arrow no row has, so the favourites line up with the places.
+
 ## 0.1.0 - 2026-09-24
 
 The first release.

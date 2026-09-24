@@ -131,6 +131,20 @@ fn question_mark_lists_the_keys() {
 }
 
 #[test]
+fn question_mark_lists_selecting_all_keeping_one_and_moving_a_favourite() {
+    let scratch = Scratch::new();
+    let mut h = open(&scratch);
+    press(&mut h, "?");
+    for (key, label) in [("ctrl+a", "select all"), ("esc", "keep only the cursor's entry")] {
+        assert!(line_with(&h, label).contains(key), "{key} {label}:\n{}", h.screen());
+    }
+    h.type_text("favourite");
+    for label in ["move the favourite up", "move the favourite down"] {
+        assert!(line_with(&h, label).contains("alt shift"), "{label}:\n{}", h.screen());
+    }
+}
+
+#[test]
 fn delete_moves_the_entry_under_the_cursor_to_the_trash() {
     let scratch = Scratch::new();
     let mut h = open_at(scratch.machine(), Start { folder: scratch.path("home"), select: Some("data.bin".into()) });

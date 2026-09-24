@@ -3,10 +3,10 @@
 use qframe::prelude::*;
 use qframe::widgets::{
     Breadcrumb, ContextItem, EmptyState, Field, FileManager, FileManagerState, FileView, HelpLayer, IconButton, Menu,
-    MenuGroup, MenuItem, Segmented, TextInput,
+    MenuGroup, MenuItem, Segmented, TextInput, Tree, TreeNode,
 };
 
-use super::nav::within;
+use super::favourites::{self, Towards};
 use super::settings::{VIEWS, view_index};
 use super::{Explorer, Msg};
 
@@ -16,6 +16,9 @@ pub(super) const LOCATION: &str = "location";
 /// The name of the file manager's rows, which take the keyboard back whenever qexp shows another
 /// folder or closes what stood over them, so ↑ and ↓ move through the folder at once.
 pub(super) const FILES: &str = "files";
+
+/// The name of the favourites in the sidebar.
+pub(super) const FAVOURITES: &str = "favourites";
 
 /// Below this width the places leave the side for a layer opened with `ctrl+b`.
 const SIDEBAR_BELOW: u16 = 90;
@@ -140,8 +143,15 @@ impl Explorer {
         }
     }
 
-    /// The places, the one the folder is in raised with the accent pillar.
+    /// The places and below them the favourites, the entry the folder is in raised with the
+    /// accent pillar.
+    ///
+    /// The favourites are a flat [`Tree`] rather than more rows of the places' [`Menu`]: a
+    /// favourite has a menu of its own, can be faint when its folder is gone, and is moved with
+    /// the keys from where the keyboard rests, which the tree offers and the menu does not. Their
+    /// heading is an empty group of the menu, so both headings are drawn alike.
     fn sidebar(&self, ui: &mut View<'_, Msg>) {
+        let current = self.current_entry().map(|(index, _)| index);
         let items = self
             .places
             .iter()
@@ -151,28 +161,47 @@ impl Explorer {
                     .icon(place.kind.icon(), None)
             })
             .collect::<Vec<_>>();
-        let current = self.current_place().map(|index| format!("place-{index}"));
-        ui.add(
-            Menu::new([MenuGroup::new("places", items).title(t!("explorer.places"))])
-                .selected(current.as_deref())
-                .on_select(|key| {
-                    Msg::Place(key.strip_prefix("place-").and_then(|n| n.parse().ok()).unwrap_or(usize::MAX))
-                }),
-        )
-        .fill()
-        .id("places");
+        let mut groups = vec![MenuGroup::new("places", items).title(t!("explorer.places"))];
+        if !self.favourites.is_empty() {
+            groups.push(MenuGroup::new("favourites", []).title(t!("explorer.favourites.title")));
+        }
+        let selected = current.filter(|index| *index < self.places.len()).map(|index| format!("place-{index}"));
+        ui.column(|ui| {
+            ui.add(Menu::new(groups).selected(selected.as_deref()).on_select(|key| {
+                Msg::Place(key.strip_prefix("place-").and_then(|n| n.parse().ok()).unwrap_or(usize::MAX))
+            }))
+            .fill_width()
+            .id("places");
+            if !self.favourites.is_empty() {
+                self.favourites(ui);
+            }
+        })
+        .fill();
     }
 
-    /// The place the folder shown is in: the deepest place that holds it.
-    fn current_place(&self) -> Option<usize> {
-        let folder = self.files.folder();
-        self.places
-            .iter()
-            .enumerate()
-            .filter_map(|(index, place)| self.key_of(&place.path).map(|key| (index, key)))
-            .filter(|(_, key)| within(folder, key))
-            .max_by_key(|(_, key)| if key.is_empty() { 0 } else { key.split('/').count() })
-            .map(|(index, _)| index)
+    /// The favourites, below the places.
+    fn favourites(&self, ui: &mut View<'_, Msg>) {
+        let nodes = self.favourites.iter().map(|favourite| {
+            let icon = self.user_folders.kind(&favourite.path).map_or("folder", |kind| kind.icon());
+            TreeNode::new(favourite.key(), favourite.name()).icon(icon, None).faint(favourite.missing)
+        });
+        let selected = self.favourite_cursor.clone().or_else(|| self.current_favourite());
+        let paths = self.favourite_paths();
+        let keys: Vec<String> = self.favourites.iter().map(favourites::Favourite::key).collect();
+        let first = self.places.len();
+        ui.add(
+            Tree::new(nodes)
+                .selected(selected.as_deref())
+                .on_select(|key| Msg::FavouriteCursor(key.to_owned()))
+                .on_activate(move |key| {
+                    Msg::Place(keys.iter().position(|own| own == key).map_or(usize::MAX, |index| first + index))
+                })
+                .context_menu(move |key| favourites::row_menu(&paths, key)),
+        )
+        .fill()
+        .id(FAVOURITES)
+        .on_action(Scope::App, "favourite-up", Msg::MoveFavourite(None, Towards::Up))
+        .on_action(Scope::App, "favourite-down", Msg::MoveFavourite(None, Towards::Down));
     }
 
     /// The folder, or the settings page in its place.
@@ -197,19 +226,24 @@ impl Explorer {
             .fill();
     }
 
-    /// qexp's own items on a row's menu: "Open with…" on a file, the extracting items on an
-    /// archive, and "Set as wallpaper" on a picture when qdesk is installed. The menu is built
+    /// qexp's own items on a row's menu: "Add to favourites" (or "Remove from favourites") on a
+    /// folder, the shown one's own row among them; "Open with…" on a file, the extracting items on
+    /// an archive, and "Set as wallpaper" on a picture when qdesk is installed. The menu is built
     /// after the view, so what it needs is taken along.
     fn menu_items(&self) -> impl Fn(&str, &[String]) -> Vec<ContextItem<Msg>> + 'static {
         let folders = self.files.folder_keys();
         let root = self.machine.root.clone();
         let path_var = self.machine.path_var.clone();
+        let favourites = self.favourite_paths();
         move |key, targets| {
             let alone = targets.len() <= 1;
-            if !alone || key == FileManagerState::ROOT || folders.contains(key) {
+            if !alone || key == FileManagerState::ROOT {
                 return Vec::new();
             }
             let path = key.split('/').filter(|part| !part.is_empty()).fold(root.clone(), |path, part| path.join(part));
+            if folders.contains(key) {
+                return favourites::folder_item(&favourites, &path).into_iter().collect();
+            }
             let mut items = vec![ContextItem::new(t!("explorer.open-with.item"), Msg::OpenWith(path.clone()))];
             items.extend(super::extract::menu_items(&path, path_var.as_deref()));
             items.extend(super::wallpaper::menu_items(&path, path_var.as_deref()));
@@ -247,6 +281,8 @@ impl Explorer {
             .hint("↑↓", t!("explorer.hints.move"))
             .hint("enter", t!("explorer.hints.open"))
             .hint("space", t!("explorer.hints.select"))
+            .hint("ctrl+a", t!("explorer.hints.select-all"))
+            .hint("esc", t!("explorer.hints.keep-one"))
             .hint("menu", t!("explorer.hints.menu"))
     }
 }

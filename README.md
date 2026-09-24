@@ -34,7 +34,10 @@ Opening a file uses the desktop's own databases: shared-mime-info tells what the
 | Up to the folder above | Backspace, alt+↑ | ↑ in the top strip, a part of the path |
 | Back, forward | alt+←, alt+→ | ‹ › in the top strip |
 | Go to a path | ctrl+l, then type it (`~` is home) | the prompt button in the top strip |
-| Places | alt+1 … alt+9 | the places on the left |
+| Places and favourites | alt+1 … alt+9, counting down the sidebar | the places on the left |
+| Add a folder to the favourites | the menu key on the folder | right click, Add to favourites |
+| Move a favourite up or down | alt+shift+↑ ↓ on it in the sidebar | right click, Move up, Move down |
+| Take a favourite out | the menu key on it in the sidebar | right click, Remove from favourites |
 | Places on a narrow screen | ctrl+b | the edge button in the top strip |
 | Hidden files | ctrl+h or alt+. | settings |
 | View: list, grid, tree | ctrl+1, ctrl+2, ctrl+3 | the picker in the top strip |
@@ -51,6 +54,10 @@ Opening a file uses the desktop's own databases: shared-mime-info tells what the
 | Quit | q, ctrl+q | |
 
 Many terminals send ctrl+h as Backspace; alt+. shows hidden files in every terminal.
+
+## Favourites
+
+Below the places are your favourites: folders you add with **Add to favourites** on a folder's right-click menu (the shown folder's own top row has it too). They stay in the order you added them until you move them, and a folder that is no longer there is drawn faint; clicking it says so instead of going anywhere. The list is kept one path per line in `~/.local/share/quvyta/explorer/favorites`. The first time qexp starts, before it has kept a list of its own, it takes in the local folders of your desktop's GTK bookmarks (`~/.config/gtk-3.0/bookmarks`, the ones Nautilus and Thunar show), so what you added there is already here. qexp never writes that file, and after that first start the two lists are separate.
 
 ## Archives
 
