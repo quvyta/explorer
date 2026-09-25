@@ -65,7 +65,7 @@ A right click on an archive offers **Extract here** and **Extract to…**. The a
 
 ## Settings
 
-Settings live in `explorer.conf` in the shared Quvyta folder (`~/.config/quvyta/` on Linux): the view (list or grid), whether hidden files are shown, and whether icons are coloured by their kind (off by default; it needs a terminal with more than 16 colours, and the shape of an icon tells the kind either way). The language, theme and icons are shared by every Quvyta application and can be set for qexp alone. Only what differs from the default is written.
+Settings live in `explorer.conf` in the shared Quvyta folder (`~/.config/quvyta/` on Linux): the view (list or grid), whether hidden files are shown, and whether icons are coloured by their kind (off by default; it needs a terminal with more than 16 colours, and the shape of an icon tells the kind either way). The language, theme and icons are shared by every Quvyta application and can be set for qexp alone; a change made in another Quvyta application reaches an open qexp at once. Only what differs from the default is written.
 
 ## With qdesk
 

@@ -33,14 +33,21 @@ pub fn run() -> io::Result<ExitCode> {
         Invocation::Screen(start) => start,
         other => return Ok(answer(&other)),
     };
+    let config = machine.config.clone();
     let opening = Opening::new(machine, start);
-    locales::LOCALES
+    let runtime = locales::LOCALES
         .iter()
         .fold(Runtime::new(opening.explorer), |runtime, (file, text)| runtime.locale_source(*file, *text))
         .keymap_source(locales::KEYMAP.0, locales::KEYMAP.1)
         .settings(&opening.settings)
-        .preferences(&opening.preferences)
-        .run()?;
+        .preferences(&opening.preferences);
+    // A member follows the look another Quvyta application changes while qexp is open; the
+    // settings and preferences given above are used as they are and not read twice.
+    let runtime = match config {
+        Some(folder) => runtime.member_in(qframe::storage::Ecosystem::QUVYTA, folder, app::APP),
+        None => runtime,
+    };
+    runtime.run()?;
     Ok(ExitCode::SUCCESS)
 }
 

@@ -15,7 +15,7 @@ use qframe::desktop::{Launched, Openers, XdgDirs, graphical_session};
 use qframe::icons::UserFolders;
 use qframe::prelude::*;
 use qframe::runtime::{Handoff, HandoffOutcome, TaskEvent, TaskId, Update, UpdateCheck};
-use qframe::storage::{Family, Preferences, Settings, data_dir};
+use qframe::storage::{Ecosystem, Preferences, Settings, data_dir};
 use qframe::widgets::{Appearance, AppearanceChange, FileManagerMsg, FileManagerState, FilePickerMsg, FileView, Toast};
 
 use crate::archive::ExtractError;
@@ -78,7 +78,7 @@ impl Machine {
         let var = |name: &str| std::env::var(name).ok().filter(|value| !value.is_empty());
         let home = var("HOME").map(PathBuf::from).unwrap_or_else(|| PathBuf::from("/"));
         let home = std::fs::canonicalize(&home).unwrap_or(home);
-        let family = Family::QUVYTA;
+        let ecosystem = Ecosystem::QUVYTA;
         Self {
             root: PathBuf::from("/"),
             home,
@@ -88,12 +88,12 @@ impl Machine {
             graphical: graphical_session(var),
             editor: launch::editor(var),
             trash: None,
-            config: family.config_dir(),
+            config: ecosystem.config_dir(),
             updates: UpdateFolders::here(),
             following: Following::On,
             // The framework names the ecosystem's config, state and cache folders but not its
             // data folder, so qexp's is put together the same way: `<data>/quvyta/explorer`.
-            favourites: data_dir(family.id()).map(|folder| folder.join(APP).join(crate::favourites::FILE)),
+            favourites: data_dir(ecosystem.id()).map(|folder| folder.join(APP).join(crate::favourites::FILE)),
         }
     }
 }
@@ -124,8 +124,8 @@ impl UpdateFolders {
     /// switch or the last question and so nothing is asked.
     #[must_use]
     pub fn here() -> Option<Self> {
-        let family = Family::QUVYTA;
-        family.config_dir().zip(family.state_dir(APP)).map(|(config, state)| Self { config, state })
+        let ecosystem = Ecosystem::QUVYTA;
+        ecosystem.config_dir().zip(ecosystem.state_dir(APP)).map(|(config, state)| Self { config, state })
     }
 }
 
@@ -199,18 +199,18 @@ impl Opening {
     /// The screen on `machine`, opening at `start`.
     #[must_use]
     pub fn new(machine: Machine, start: Start) -> Self {
-        let family = Family::QUVYTA;
+        let ecosystem = Ecosystem::QUVYTA;
         let i18n = crate::locales::i18n();
         let (settings, preferences) = match &machine.config {
             Some(folder) => (
-                Settings::open(folder.join(format!("{APP}.conf"))).member_of(&family),
-                family.preferences_in(folder, APP, &i18n),
+                Settings::open(folder.join(format!("{APP}.conf"))).member_of(&ecosystem),
+                ecosystem.preferences_in(folder, APP, &i18n),
             ),
-            None => (Settings::in_memory(), family.preferences(APP, &i18n)),
+            None => (Settings::in_memory(), ecosystem.preferences(APP, &i18n)),
         };
         let appearance = match &machine.config {
-            Some(folder) => Appearance::new(family, APP, preferences.clone()).in_folder(folder),
-            None => Appearance::new(family, APP, preferences.clone()).without_saving(),
+            Some(folder) => Appearance::new(ecosystem, APP, preferences.clone()).in_folder(folder),
+            None => Appearance::new(ecosystem, APP, preferences.clone()).without_saving(),
         };
         let explorer = Explorer::new(machine, start, settings.clone(), appearance);
         Self { explorer, settings, preferences }
@@ -288,12 +288,17 @@ impl Explorer {
     /// machine where it is off asks nothing at all.
     fn ask_for_update(&self) -> Command<Msg> {
         let Some(folders) = &self.machine.updates else { return Command::none() };
-        if !Family::QUVYTA.update_notice_in(&folders.config) {
+        if !Ecosystem::QUVYTA.update_notice_in(&folders.config) {
             return Command::none();
         }
-        let check =
-            UpdateCheck::new(Family::QUVYTA, APP, env!("CARGO_PKG_NAME"), env!("CARGO_PKG_VERSION"), Msg::NewVersion)
-                .in_folders(folders.config.clone(), folders.state.clone());
+        let check = UpdateCheck::new(
+            Ecosystem::QUVYTA,
+            APP,
+            env!("CARGO_PKG_NAME"),
+            env!("CARGO_PKG_VERSION"),
+            Msg::NewVersion,
+        )
+        .in_folders(folders.config.clone(), folders.state.clone());
         Command::check_for_update(check)
     }
 
@@ -442,6 +447,9 @@ pub enum Msg {
     Delete,
     /// A change on the settings page's appearance rows.
     Appearance(AppearanceChange),
+    /// Another Quvyta application changed the shared language, theme, icons or reduced motion; the
+    /// runtime has already switched the screen, the settings page still has to show it.
+    Preferences(Preferences),
     /// `explorer.conf` was written, or why not.
     Saved(Result<(), String>),
     /// A newer version of qexp is out.
@@ -468,6 +476,10 @@ impl App for Explorer {
         };
         let favourites = self.load_favourites();
         Command::batch([load, start, favourites, self.ask_for_update()])
+    }
+
+    fn preferences(&self, preferences: &Preferences) -> Option<Msg> {
+        Some(Msg::Preferences(preferences.clone()))
     }
 
     fn update(&mut self, msg: Msg) -> Command<Msg> {
@@ -538,6 +550,7 @@ impl App for Explorer {
             Msg::Delete => return self.on_selected(FileManagerMsg::Delete),
             // The framework's rows write their own files, key by key.
             Msg::Appearance(change) => return self.appearance.update(change, &mut self.settings),
+            Msg::Preferences(preferences) => self.appearance.refresh(preferences),
             Msg::Saved(Ok(())) => {}
             Msg::Saved(Err(reason)) => {
                 return Command::toast(Toast::warning(t!("explorer.settings.not-saved")).body(reason).key("saved"));

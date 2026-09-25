@@ -178,3 +178,31 @@ fn without_the_folders_nothing_is_asked() {
     let h = open_at(machine, Start { folder: scratch.path("home"), select: None });
     assert!(h.update_checks().is_empty());
 }
+
+#[test]
+fn a_theme_another_quvyta_application_gives_qexp_while_it_is_open_is_where_the_next_pick_goes() {
+    use qframe::storage::{Ecosystem, Scope, Shared};
+    let scratch = Scratch::new();
+    let folder = scratch.path("config");
+    scratch.write("config/quvyta.conf", "language = \"en\"\ntheme = \"nordic\"\nicons = \"unicode\"\n");
+    let opening = Opening::new(scratch.machine(), Start { folder: scratch.path("home"), select: None });
+    let mut h = Harness::member_in(opening.explorer, Ecosystem::QUVYTA, &folder, super::super::APP, 100, 30);
+    h.set_reduced_motion(true);
+    settle(&mut h);
+    click_icon(&mut h, "settings");
+    assert!(h.screen().contains("Nordic"), "{}", h.screen());
+    // The launcher, which lists every member, gives qexp a theme of its own.
+    Ecosystem::QUVYTA.set_in(&folder, super::super::APP, Shared::Theme, "iris", Scope::App).expect("saved");
+    h.poll_preferences();
+    settle(&mut h);
+    assert_eq!(h.env().theme().id(), "iris", "the screen follows");
+    assert!(h.screen().contains("Iris"), "and the page says so:\n{}", h.screen());
+    // qexp now keeps its own theme, so the next one picked here stays with qexp.
+    h.click_text("Iris");
+    settle(&mut h);
+    h.click_text("Amber");
+    settle(&mut h);
+    assert!(conf(&scratch).contains("theme = \"amber\""), "{}", conf(&scratch));
+    let shared = fs::read_to_string(folder.join("quvyta.conf")).expect("quvyta.conf");
+    assert!(shared.contains("theme = \"nordic\""), "the other applications keep theirs:\n{shared}");
+}

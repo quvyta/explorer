@@ -2,6 +2,12 @@
 
 Every release of quvyta-explorer, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## 0.1.3 - 2026-09-25
+
+### Changed
+
+- Built on quvyta-framework 0.1.29. When another Quvyta application changes the shared language, theme, icons or reduced motion while qexp is open, qexp follows at once, and an open settings page shows the new values.
+
 ## 0.1.2 - 2026-09-24
 
 ### Removed
